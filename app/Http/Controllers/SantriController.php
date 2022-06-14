@@ -10,7 +10,7 @@ class SantriController extends Controller
     public function index()
     {
         $items = DB::table('santri')->get();
-        return view('santri/index',[
+        return view('santri/home',[
             'items' => $items
         ]);
     }
@@ -19,28 +19,28 @@ class SantriController extends Controller
         return view('santri.create');
     }
     
-    // public function store(Request $request){
-    //     $data = $request->all();
-    //     Santri::create($data);
-    //     return redirect()->route('mahasiswa.index');
-    // }
+    public function store(Request $request){
+        $data = $request->all();
+        Santri::create($data);
+        return redirect()->route('santri.index');
+    }
 
-    // public function edit($id){
-    //     $items = Santri::findOrFail($id);
-    //     return view('Santri.edit', compact('items'));
-    // }
+    public function edit($id){
+        $items = Santri::findOrFail($id);
+        return view('Santri.edit', compact('items'));
+    }
 
-    // public function update(Request $request, $id)
-    // {
-    //     $data = $request->all();
-    //     $item = Santri::findOrFail($id);
-    //     $item->update($data);
-    //     return redirect()->route('mahasiswa.index');
-    // }
+    public function update(Request $request, $id)
+    {
+        $data = $request->all();
+        $item = Santri::findOrFail($id);
+        $item->update($data);
+        return redirect()->route('santri.index');
+    }
 
-    // public function destroy($id){
-    //     $item = Santri::findOrFail($id);
-    //     $item->delete();
-    //     return redirect()->route('mahasiswa.index');
-    // }
+    public function destroy($id){
+        $item = Santri::findOrFail($id);
+        $item->delete();
+        return redirect()->route('santri.index');
+    }
 }
