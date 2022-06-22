@@ -184,14 +184,14 @@
         data: {
           labels: ["Jan", "Feb", "Mar", "Apr", "May"],
           datasets: [{
-              label: 'Offline Sales',
+              label: 'Santri Putra',
               data: [480, 230, 470, 210, 330],
-              backgroundColor: '#98BDFF'
+              backgroundColor: '#4B49AC'
             },
             {
-              label: 'Online Sales',
+              label: 'Santri Putri',
               data: [400, 340, 550, 480, 170],
-              backgroundColor: '#4B49AC'
+              backgroundColor: '#98BDFF'
             }
           ]
         },
@@ -259,12 +259,12 @@
         data: {
           labels: ["Jan", "Feb", "Mar", "Apr", "May"],
           datasets: [{
-              label: 'Offline Sales',
+              label: 'Santri Putri',
               data: [480, 230, 470, 210, 330],
               backgroundColor: '#98BDFF'
             },
             {
-              label: 'Online Sales',
+              label: 'Santri Putra',
               data: [400, 340, 550, 480, 170],
               backgroundColor: '#4B49AC'
             }
@@ -629,38 +629,7 @@
           '</tr>'+
       '</table>';
   }
-  var table = $('#example').DataTable( {
-    "ajax": "js/data.txt",
-    "columns": [
-        { "data": "Quote" },
-        { "data": "Product" },
-        { "data": "Business" },
-        { "data": "Policy" }, 
-        { "data": "Premium" }, 
-        { "data": "Status" }, 
-        { "data": "Updated" }, 
-        {
-          "className":      'details-control',
-          "orderable":      false,
-          "data":           null,
-          "defaultContent": ''
-        }
-    ],
-    "order": [[1, 'asc']],
-    "paging":   false,
-    "ordering": true,
-    "info":     false,
-    "filter": false,
-    columnDefs: [{
-      orderable: false,
-      className: 'select-checkbox',
-      targets: 0
-    }],
-    select: {
-      style: 'os',
-      selector: 'td:first-child'
-    }
-  } );
+
 $('#example tbody').on('click', 'td.details-control', function () {
   var tr = $(this).closest('tr');
   var row = table.row( tr );

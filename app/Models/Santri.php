@@ -20,6 +20,9 @@ class Santri extends Model
         'nama_ibu',
         'nama_ayah',
         'created_at',
-        'updated_at',	
+        'updated_at',
     ];
+    function get_data_all(){
+        
+    }
 }

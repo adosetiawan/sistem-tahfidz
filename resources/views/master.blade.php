@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <!-- Required meta tags -->
   <meta charset="utf-8">
@@ -295,7 +294,7 @@
         <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <ul class="nav">
           <li class="nav-item">
-            <a class="nav-link" href="index.html">
+            <a class="nav-link" href="{{ route('dashboard')}}">
               <i class="icon-grid menu-icon"></i>
               <span class="menu-title">Dashboard</span>
             </a>
@@ -309,6 +308,9 @@
             <div class="collapse" id="ui-basic">
               <ul class="nav flex-column sub-menu">
                 <li class="nav-item"> <a class="nav-link" href="{{ route('santri.index') }}" >Daftar Santri</a></li>
+                <li class="nav-item"> <a class="nav-link" href="{{ route('kelas.index') }}" >Daftar Kelas</a></li>
+                <li class="nav-item"> <a class="nav-link" href="{{ route('presensi.index') }}" >Presensi</a></li>
+                <li class="nav-item"> <a class="nav-link" href="{{ route('tahfid.index') }}" >Hafalan</a></li>
               </ul>
             </div>
           </li>
@@ -374,22 +376,9 @@
             </div>
           </li>
           <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#error" aria-expanded="false" aria-controls="error">
-              <i class="icon-ban menu-icon"></i>
-              <span class="menu-title">Error pages</span>
-              <i class="menu-arrow"></i>
-            </a>
-            <div class="collapse" id="error">
-              <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="#"> 404 </a></li>
-                <li class="nav-item"> <a class="nav-link" href="#"> 500 </a></li>
-              </ul>
-            </div>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="pages/documentation/documentation.html">
-              <i class="icon-paper menu-icon"></i>
-              <span class="menu-title">Documentation</span>
+            <a class="nav-link" href="{{ url('logout')}}">
+              <i class="icon-grid menu-icon"></i>
+              <span class="menu-title">Logout</span>
             </a>
           </li>
         </ul>
@@ -398,7 +387,9 @@
       <!-- partial -->
       <div class="main-panel">
         <div class="content-wrapper">
-        @yield('konten')
+
+          @yield('konten')
+          
         </div>
         <!-- content-wrapper ends -->
         <!-- partial:partials/_footer.html -->
@@ -414,6 +405,7 @@
     </div>
     <!-- page-body-wrapper ends -->
   </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
   <!-- container-scroller -->
   <!-- plugins:js -->
   <script src="{{asset('vendors/js/vendor.bundle.base.js')}}"></script>
@@ -421,6 +413,7 @@
   <!-- Plugin js for this page -->
   <!-- End plugin js for this page -->
   <!-- inject:js -->
+  <script src="{{asset('vendors/chart.js/Chart.min.js')}}"></script>
   <script src="{{asset('js/off-canvas.js')}}"></script>
   <script src="{{asset('js/hoverable-collapse.js')}}"></script>
   <script src="{{asset('js/template.js')}}"></script>
@@ -428,6 +421,7 @@
   <script src="{{asset('js/todolist.js')}}"></script>
   <!-- endinject -->
   <!-- Custom js for this page-->
+  <script src="{{asset('js/dashboard.js')}}"></script>
   <!-- End custom js for this page-->
 </body>
 

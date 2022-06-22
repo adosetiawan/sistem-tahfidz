@@ -1,10 +1,12 @@
 <?php
 
-use App\Http\Controllers\StudentController;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
+
 use App\Http\Controllers\SantriController;
+use App\Http\Controllers\KelasController;
+use App\Http\Controllers\PresensiController;
+use App\Http\Controllers\TahfidController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,33 +18,20 @@ use App\Http\Controllers\SantriController;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
 
-// Route::get('/greeting', function () {
-//     return 'Hello Mamat';
-// });
+//Route::get('/', [HomeController::class, 'home']);
+//Route::get('/', LoginController::class);
 
-// // Route::get('/Kuser', function () {
-// //     return 'Ini User';
-// // });
+Route::resource('/santri' , SantriController::class)->middleware('auth');
+Route::resource('/kelas' , KelasController::class)->middleware('auth');
+Route::resource('/presensi' , PresensiController::class)->middleware('auth');
+Route::resource('/tahfid' , TahfidController::class)->middleware('auth');
 
-// Route::get('/user', function () {
-//     return view('user');
-// });
+Route::get('/detail/{param}','App\Http\Controllers\TahfidController@detail')->name('detail')->middleware('auth');
 
-
-Route::get('/', [HomeController::class, 'home']);
-
-//Route::resource('santri', SantriController::class);
-//Route::get('santri', SantriController::class);
-//Route::get('santri', 'App\Http\Controllers\SantriController@index');
-Route::resource('/santri' , SantriController::class);
-
-// Route::resource('user', StudentController::class);
-
-// Route::get('mahasiswa', StudentController::class);
-
-
-// Route::resource('user' ,UserController::class);
+Route::get('/', 'App\Http\Controllers\LoginController@index');
+Route::get('/login', 'App\Http\Controllers\LoginController@index')->name('login');
+Route::post('/login/proses', 'App\Http\Controllers\LoginController@proses');
+Route::get('/logout', 'App\Http\Controllers\LoginController@logout')->name('logout');
+Route::get('/dashboard', 'App\Http\Controllers\DashboardController@index')->name('dashboard')->middleware('auth');
+//Route::post('/login/proses', 'App\Http\Controllers\LoginController@proses');

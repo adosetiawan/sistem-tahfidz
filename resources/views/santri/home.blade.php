@@ -22,14 +22,15 @@
                                     Program
                                 </th>
                                 <th>
+                                    Kelas
+                                </th>
+                                <th>
                                     Jenis Kelamin
                                 </th>
                                 <th>
                                     Telepon
                                 </th>
-                                <th>
-                                    Email
-                                </th>
+                               
                                 <th>
                                     Aksi
                                 </th>
@@ -40,10 +41,11 @@
                             <tr>
                                 <td>1</td>
                                 <td>{{ $item->nama_lengkap }}</td>
-                                <td>{{ $item->program_id }}</td>
+                                <td>{{ $item->program_nama }}</td>
+                                <td>{{ $item->kelas_nama }}</td>
                                 <td>{{ $item->jenis_kelamin }}</td>
-                                <td>{{ $item->jenis_kelamin }}</td>
-                                <td>{{ $item->jenis_kelamin }}</td>
+                                <td>{{ $item->no_telp_ayah }}</td>
+
                                 <td>
 
                                     <form action="{{ route('santri.destroy', $item->id) }}" method="POST" <br>
