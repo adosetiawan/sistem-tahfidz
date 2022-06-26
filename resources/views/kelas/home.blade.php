@@ -35,13 +35,8 @@
                                 <td>{{ $item->kelas_tingkat }}</td>
                                 <td>
 
-                                    <form action="{{ route('santri.destroy', $item->id) }}" method="POST" <br>
-                                        <a class="btn btn-warning" href="{{ route('santri.edit', $item->id) }}">edit</a>
-                                        @csrf
-                                        @method('delete')
-                                        <button type="submit" class="btn btn-danger">delete</a>
-
-                                    </form>
+                                <a class="btn btn-warning" href="{{ route('kelas.edit', $item->id) }}">edit</a>
+                                    <a class="btn btn-danger" href="{{ url('kelas/delete', $item->id) }}">delete</a>
 
                                 </td>
                             </tr>

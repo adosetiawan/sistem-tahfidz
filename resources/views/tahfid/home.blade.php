@@ -54,7 +54,7 @@
                                                 <input type="text" name="halaman" class="form-control" id="exampleInputName1" placeholder="1 juz, 4 halaman">
                                             </div>
                                             <div class="col-md-3">
-                                                <a href="{{ url('detail?id='.$item->santri_id) }}" class="btn btn-primary mr-2">Detail</a>
+                                                <a href="{{ url('tahfid/detail/'.$item->santri_id) }}" class="btn btn-primary mr-2">Detail</a>
                                                    
                                                     <button type="submit" class="btn btn-success">Simpan</a>
                                             </div>

@@ -48,15 +48,18 @@
 
                                 <td>
 
-                                    <form action="{{ route('santri.destroy', $item->id) }}" method="POST" <br>
-                                        <a class="btn btn-warning" href="{{ route('santri.edit', $item->id) }}">edit</a>
-                                        @csrf
-                                        @method('delete')
+                                   
+                                    <a class="btn btn-warning" href="{{ route('santri.edit', $item->id) }}">edit</a>
+                                    <a class="btn btn-danger" href="{{ url('santri/delete', $item->id) }}">delete</a>
 
+                                    <!-- <form method="POST" action="{{ route('santri.destroy', $item->id) }}">
 
-                                        <button type="submit" class="btn btn-danger">delete</a>
+                                        {{ csrf_field() }}
+                                        {{ method_field('DELETE') }}
+                                        <button class="btn btn-danger" type="submit">delete</button>
 
-                                    </form>
+                                    </form> -->
+
 
                                 </td>
                             </tr>

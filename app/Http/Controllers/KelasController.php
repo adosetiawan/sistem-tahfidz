@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Santri;
+use App\Models\Kelas;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 class KelasController extends Controller
@@ -21,29 +21,29 @@ class KelasController extends Controller
     
     public function store(Request $request){
         $data = $request->all();
-        print_r($data);
-        exit;
-        Santri::create($data);
+        Kelas::create($data);
         return redirect()->route('santri.index');
     }
 
     public function edit($id){
-        $items = Santri::findOrFail($id);
-        return view('Santri.edit', compact('items'));
+        $items = Kelas::findOrFail($id);
+        return view('kelas.edit', compact('items'));
     }
 
     public function update(Request $request, $id)
     {
+        // print_r($request->all());
+        // exit;
         $data = $request->all();
-        $item = Santri::findOrFail($id);
+        $item = Kelas::findOrFail($id);
         $item->update($data);
-        return redirect()->route('santri.index');
+        return redirect()->route('kelas.index');
     }
 
-    public function destroy($id){
-        $item = Santri::findOrFail($id);
+    public function delete($id){
+        $item = Kelas::findOrFail($id);
         $item->delete();
-        return redirect()->route('santri.index');
+        return redirect()->route('kelas.index');
     }
     
 }

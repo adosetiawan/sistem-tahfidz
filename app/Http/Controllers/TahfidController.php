@@ -5,11 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\Tahfid;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-
+use Illuminate\Support\Facades\Auth;
 class TahfidController extends Controller
 {
     public function index()
     {
+        // print_r(Auth::user()->email);
+        // exit;
         $items =  DB::table('santri')->select('nama_lengkap','santri.id AS santri_id')->join('program_tahfidz', function ($join) {
             $join->on('santri.program_id', '=', 'program_tahfidz.id');
             })->get();
@@ -18,12 +20,12 @@ class TahfidController extends Controller
         ]);
     }
 
-    public function detail(Request $request)
+    public function detail(Request $request,$id)
     {
-        $req = $request->all();
-        $items =  DB::table('tahfid')->join('santri', function ($join) use ($req) {
+       
+        $items =  DB::table('tahfid')->join('santri', function ($join) use ($id) {
                 $join->on('tahfid.santri_id', '=', 'santri.id')
-                ->where('santri.id', '=', $req['id']);
+                ->where('santri.id', '=', $id);
             })->get();
         return view('tahfid/detail',[
             'items' => $items
