@@ -26,10 +26,10 @@
         <div class="row w-100 mx-0">
           <div class="col-lg-4 mx-auto">
             <div class="auth-form-light text-left py-5 px-4 px-sm-5">
-              <div class="brand-logo">
-                <img src="{{asset('images/logo.svg')}}" alt="logo">
+              <div class="brand-logo text-center">
+                <img src="{{asset('images/alquran-icon-png-4.png')}}" alt="logo">
               </div>
-              <h4>SISTEM TAHFIDZH</h4>
+              <h3 class="text-center text-bold"> SISTEM TAHFIDZH</h3>
               @if(count($errors)>0)
               @foreach($errors->all() as $error)
               <div class="alert alert-warning alert-dismissible fade show" role="alert">

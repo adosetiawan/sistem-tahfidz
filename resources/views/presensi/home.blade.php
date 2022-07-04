@@ -9,7 +9,7 @@
                     <a href="{{ route('presensi.create') }}" class="btn btn-primary">Tambah Absen</a>
                 </div>
                 <div class="table-responsive pt-3">
-                    <table class="table table-bordered">
+                    <table class="table table-bordered" id="table-presensi"> 
                         <thead>
                             <tr>
                                 <th>
@@ -24,26 +24,17 @@
                                 <th>
                                     Tanggal
                                 </th>
+                              
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse ($presensi as $item)
+                            @forelse ($presensi as $key => $item)
                             <tr>
-                                <td>1</td>
+                                <td>{{++$key}}</td>
                                 <td>{{ $item->nama }}</td>
                                 <td>{{ $item->kehadiran }}</td>
                                 <td>{{ $item->tanggal }}</td>
-                                <td>
-
-                                    <form action="{{ route('santri.destroy', $item->id) }}" method="POST" <br>
-                                        <a class="btn btn-warning" href="{{ route('santri.edit', $item->id) }}">edit</a>
-                                        @csrf
-                                        @method('delete')
-                                        <button type="submit" class="btn btn-danger">delete</a>
-
-                                    </form>
-
-                                </td>
+                           
                             </tr>
                             @empty
                             @endforelse
@@ -54,5 +45,34 @@
         </div>
     </div>
 </div>
+<script>
+    $(document).ready(function(){
+        let documentTitle = $('.card-title').text();
+        $('#table-presensi').dataTable({
+        dom: 'Bfrtip',
+        buttons: [
+                {
+                    extend: 'copyHtml5',
+                    title: documentTitle
+                },
+                {
+                    extend: 'excelHtml5',
+                    title: documentTitle,
+                },
+                {
+                    extend: 'csvHtml5',
+                    title: documentTitle
+                },
+                {
+                    extend: 'pdfHtml5',
+                    title: documentTitle,
+                    orientation: 'landscape',
+                    pageSize: 'LEGAL',
+               
+                }
+            ]
+    } );
+    });
+</script>
 @endsection
 

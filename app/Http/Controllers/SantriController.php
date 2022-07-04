@@ -48,7 +48,6 @@ class SantriController extends Controller
             'username'=>'required',
             'password'=>'required',
             'email' => 'required',
-            'level' => 'required',
             'nama_lengkap' => 'required',
             'tempat_lahir' => 'required',
             'tanggal_lahir' => 'required',

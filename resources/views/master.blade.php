@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <!-- Required meta tags -->
   <meta charset="utf-8">
@@ -13,9 +14,41 @@
   <!-- Plugin css for this page -->
   <!-- End plugin css for this page -->
   <!-- inject:css -->
+  <link rel="stylesheet" href="{{asset('vendors/datatables.net-bs4/dataTables.bootstrap4.css')}}">
   <link rel="stylesheet" href="{{asset('css/vertical-layout-light/style.css')}}">
   <!-- endinject -->
   <link rel="shortcut icon" href="{{asset('images/favicon.png')}}" />
+
+  <script src="{{asset('vendors/js/vendor.bundle.base.js')}}"></script>
+
+  <!-- container-scroller -->
+  <!-- plugins:js -->
+  <!-- endinject -->
+  <!-- Plugin js for this page -->
+  <!-- End plugin js for this page -->
+  <!-- inject:js -->
+  <script src="{{asset('vendors/chart.js/Chart.min.js')}}"></script>
+  <script src="{{asset('js/off-canvas.js')}}"></script>
+  <script src="{{asset('js/hoverable-collapse.js')}}"></script>
+  <script src="{{asset('js/template.js')}}"></script>
+  <script src="{{asset('js/settings.js')}}"></script>
+  <script src="{{asset('js/todolist.js')}}"></script>
+  <!-- endinject -->
+  <!-- Custom js for this page-->
+  <script src="{{asset('js/dashboard.js')}}"></script>
+
+
+  <script src="{{asset('vendors/datatables.net/jquery.dataTables.js')}}"></script>
+  <script src="{{asset('vendors/datatables.net-bs4/dataTables.bootstrap4.js')}}"></script>
+  <script src="{{asset('vendors/datatables.net/dataTables.buttons.min.js')}}"></script>
+  <script src="{{asset('vendors/datatables.net/jszip.min.js')}}"></script>
+  <script src="{{asset('vendors/datatables.net/pdfmake.min.js')}}"></script>
+  <script src="{{asset('vendors/datatables.net/vfs_fonts.js')}}"></script>
+  <script src="{{asset('vendors/datatables.net/buttons.html5.min.js')}}"></script>
+  <script src="{{asset('js/dataTables.select.min.js')}}"></script>
+  
+  <!-- End custom js for this page-->
+
 </head>
 
 <body>
@@ -23,8 +56,8 @@
     <!-- partial:partials/_navbar.html -->
     <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
       <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-        <a class="navbar-brand brand-logo mr-5" href="index.html"><img src="{{asset('images/logo.svg')}}" class="mr-2" alt="logo"/></a>
-        <a class="navbar-brand brand-logo-mini" href="index.html"><img src="{{asset('images/logo-mini.svg')}}" alt="logo"/></a>
+        <a class="navbar-brand brand-logo mr-5" href="index.html"><img src="{{asset('images/logo.svg')}}" class="mr-2" alt="logo" /></a>
+        <a class="navbar-brand brand-logo-mini" href="index.html"><img src="{{asset('images/logo-mini.svg')}}" alt="logo" /></a>
       </div>
       <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
         <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
@@ -93,7 +126,7 @@
           </li>
           <li class="nav-item nav-profile dropdown">
             <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
-              <img src="{{asset('images/faces/face28.jpg')}}" alt="profile"/>
+              <img src="{{asset('images/faces/face28.jpg')}}" alt="profile" />
             </a>
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
               <a class="dropdown-item">
@@ -125,8 +158,12 @@
         <div id="theme-settings" class="settings-panel">
           <i class="settings-close ti-close"></i>
           <p class="settings-heading">SIDEBAR SKINS</p>
-          <div class="sidebar-bg-options selected" id="sidebar-light-theme"><div class="img-ss rounded-circle bg-light border mr-3"></div>Light</div>
-          <div class="sidebar-bg-options" id="sidebar-dark-theme"><div class="img-ss rounded-circle bg-dark border mr-3"></div>Dark</div>
+          <div class="sidebar-bg-options selected" id="sidebar-light-theme">
+            <div class="img-ss rounded-circle bg-light border mr-3"></div>Light
+          </div>
+          <div class="sidebar-bg-options" id="sidebar-dark-theme">
+            <div class="img-ss rounded-circle bg-dark border mr-3"></div>Dark
+          </div>
           <p class="settings-heading mt-2">HEADER SKINS</p>
           <div class="color-tiles mx-0 px-4">
             <div class="tiles success"></div>
@@ -290,9 +327,12 @@
       </div>
       <!-- partial -->
       <!-- partial:partials/_sidebar.html -->
-        <!-- @extends('navbar') -->
-        <nav class="sidebar sidebar-offcanvas" id="sidebar">
+      <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <ul class="nav">
+        @php
+          $userinfo = Auth::user();
+        @endphp
+        @if($userinfo->level == 'admin')
           <li class="nav-item">
             <a class="nav-link" href="{{ route('dashboard')}}">
               <i class="icon-grid menu-icon"></i>
@@ -307,9 +347,22 @@
             </a>
             <div class="collapse" id="ui-basic">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="{{ route('santri.index') }}" >Daftar Santri</a></li>
-                <li class="nav-item"> <a class="nav-link" href="{{ route('santri.create') }}" >Tambah Santri</a></li>
-                <li class="nav-item"> <a class="nav-link" href="{{ route('presensi.index') }}" >Presensi</a></li>
+                <li class="nav-item"> <a class="nav-link" href="{{ route('santri.index') }}">Daftar Santri</a></li>
+                <li class="nav-item"> <a class="nav-link" href="{{ route('santri.create') }}">Tambah Santri</a></li>
+                <li class="nav-item"> <a class="nav-link" href="{{ route('presensi.index') }}">Presensi</a></li>
+              </ul>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+              <i class="icon-layout menu-icon"></i>
+              <span class="menu-title">Data Pengajar</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="ui-basic">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="{{ route('pengajar.index') }}">Daftar Pengajar</a></li>
+                <li class="nav-item"> <a class="nav-link" href="{{ route('pengajar.create') }}">Tambah Pengajar</a></li>
               </ul>
             </div>
           </li>
@@ -321,10 +374,10 @@
             </a>
             <div class="collapse" id="ui-hafalan">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="{{ route('tahfid.index') }}" >Daftar Hafalan</a></li>
-                <li class="nav-item"> <a class="nav-link" href="{{ route('tahfid.create') }}" >Tambah Hafalan</a></li>
+                <li class="nav-item"> <a class="nav-link" href="{{ route('tahfid.index') }}">Daftar Hafalan</a></li>
+                <li class="nav-item"> <a class="nav-link" href="{{ route('tahfid.create') }}">Tambah Hafalan</a></li>
               </ul>
-</div>
+            </div>
           </li>
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#form-elements" aria-expanded="false" aria-controls="form-elements">
@@ -334,12 +387,12 @@
             </a>
             <div class="collapse" id="form-elements">
               <ul class="nav flex-column sub-menu">
-                <li class="nav-item"> <a class="nav-link" href="{{ route('kelas.index') }}" >Daftar Kelas</a></li>
-                <li class="nav-item"> <a class="nav-link" href="{{ route('kelas.create') }}" >Tambah Kelas</a></li>
+                <li class="nav-item"> <a class="nav-link" href="{{ route('kelas.index') }}">Daftar Kelas</a></li>
+                <li class="nav-item"> <a class="nav-link" href="{{ route('kelas.create') }}">Tambah Kelas</a></li>
               </ul>
             </div>
           </li>
-      
+
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
               <i class="icon-head menu-icon"></i>
@@ -353,12 +406,30 @@
             </div>
           </li>
           <li class="nav-item">
+            <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
+              <i class="icon-head menu-icon"></i>
+              <span class="menu-title">Laporan</span>
+              <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse" id="auth">
+              <ul class="nav flex-column sub-menu">
+                <li class="nav-item"> <a class="nav-link" href="{{ route('laporan.index')}}"> Hafalan Santri </a></li>
+                <li class="nav-item"> <a class="nav-link" href="{{ url('laporan/absensisantri')}}"> Absensi Santri </a></li>
+                <li class="nav-item"> <a class="nav-link" href="{{ url('laporan/absensipengajar')}}"> Absensi Pengajar </a></li>
+                <li class="nav-item"> <a class="nav-link" href="{{ url('laporan/ketercapaiansantri')}}"> Ketercapaian Santri </a></li>
+              </ul>
+            </div>
+          </li>
+          @endif
+       
+          <li class="nav-item">
             <a class="nav-link" href="{{ url('logout')}}">
               <i class="icon-grid menu-icon"></i>
               <span class="menu-title">Logout</span>
             </a>
           </li>
         </ul>
+
       </nav>
       <!-- partial -->
       <div class="main-panel">
@@ -369,7 +440,7 @@
         <!-- partial:partials/_footer.html -->
         <footer class="footer">
           <div class="d-sm-flex justify-content-center justify-content-sm-between">
-            <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2021.  Premium <a href="https://www.bootstrapdash.com/" target="_blank">Bootstrap admin template</a> from BootstrapDash. All rights reserved.</span>
+            <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2021. Premium <a href="https://www.bootstrapdash.com/" target="_blank">Bootstrap admin template</a> from BootstrapDash. All rights reserved.</span>
             <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">Hand-crafted & made with <i class="ti-heart text-danger ml-1"></i></span>
           </div>
         </footer>
@@ -379,24 +450,7 @@
     </div>
     <!-- page-body-wrapper ends -->
   </div>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-  <!-- container-scroller -->
-  <!-- plugins:js -->
-  <script src="{{asset('vendors/js/vendor.bundle.base.js')}}"></script>
-  <!-- endinject -->
-  <!-- Plugin js for this page -->
-  <!-- End plugin js for this page -->
-  <!-- inject:js -->
-  <script src="{{asset('vendors/chart.js/Chart.min.js')}}"></script>
-  <script src="{{asset('js/off-canvas.js')}}"></script>
-  <script src="{{asset('js/hoverable-collapse.js')}}"></script>
-  <script src="{{asset('js/template.js')}}"></script>
-  <script src="{{asset('js/settings.js')}}"></script>
-  <script src="{{asset('js/todolist.js')}}"></script>
-  <!-- endinject -->
-  <!-- Custom js for this page-->
-  <script src="{{asset('js/dashboard.js')}}"></script>
-  <!-- End custom js for this page-->
+
 </body>
 
 </html>

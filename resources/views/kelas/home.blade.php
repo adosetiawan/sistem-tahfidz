@@ -8,8 +8,8 @@
                     <h4 class="card-title">Data Kelas</h4>
                     <a href="{{ route('kelas.create') }}" class="btn btn-primary">Tambah Kelas</a>
                 </div>
-                <div class="table-responsive pt-3">
-                    <table class="table table-bordered">
+                <div class="pt-3">
+                    <table class="table table-bordered" id="table-kelas">
                         <thead>
                             <tr>
                                 <th>
@@ -24,6 +24,9 @@
                                 <th>
                                     Tingkat
                                 </th>
+                                <th>
+                                    
+                                </th>
                             </tr>
                         </thead>
                         <tbody>
@@ -35,7 +38,7 @@
                                 <td>{{ $item->kelas_tingkat }}</td>
                                 <td>
 
-                                <a class="btn btn-warning" href="{{ route('kelas.edit', $item->id) }}">edit</a>
+                                    <a class="btn btn-warning" href="{{ route('kelas.edit', $item->id) }}">edit</a>
                                     <a class="btn btn-danger" href="{{ url('kelas/delete', $item->id) }}">delete</a>
 
                                 </td>
@@ -49,4 +52,32 @@
         </div>
     </div>
 </div>
+<script>
+    $(document).ready(function() {
+        let documentTitle = $('.card-title').text();
+        $('#table-kelas').dataTable({
+            dom: 'Bfrtip',
+            buttons: [{
+                    extend: 'copyHtml5',
+                    title: documentTitle
+                },
+                {
+                    extend: 'excelHtml5',
+                    title: documentTitle,
+                },
+                {
+                    extend: 'csvHtml5',
+                    title: documentTitle
+                },
+                {
+                    extend: 'pdfHtml5',
+                    title: documentTitle,
+                    orientation: 'landscape',
+                    pageSize: 'LEGAL',
+
+                }
+            ]
+        });
+    });
+</script>
 @endsection

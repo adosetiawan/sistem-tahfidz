@@ -22,7 +22,6 @@ class TahfidController extends Controller
 
     public function detail(Request $request,$id)
     {
-       
         $items =  DB::table('tahfid')->join('santri', function ($join) use ($id) {
                 $join->on('tahfid.santri_id', '=', 'santri.id')
                 ->where('santri.id', '=', $id);
@@ -38,6 +37,15 @@ class TahfidController extends Controller
     
     public function store(Request $request){
         $data = $request->all();
+        $this->validate($request,[
+            'santri_id'=>'required',
+            'kehadiran'=>'required',
+            'kategori' => 'required',
+            'halaman' => 'required',
+            'halaman' => 'required',
+        ],[
+            'required'=>':attribute Harus di isi!!'
+        ]);
         DB::table('tahfid')->insert([
             'santri_id' => $data['santri_id'],
             'kehadiran' => $data['kehadiran'],
@@ -48,7 +56,7 @@ class TahfidController extends Controller
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s'),
         ]);
-        return redirect()->route('tahfid.index');
+        return redirect()->route('tahfid.index')->with(['success'=>'Poin berhasil ditambahkan']);
     }
 
     public function edit($id){

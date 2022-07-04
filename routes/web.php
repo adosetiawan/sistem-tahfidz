@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\LoginController;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\SantriController;
@@ -8,6 +7,8 @@ use App\Http\Controllers\KelasController;
 use App\Http\Controllers\PresensiController;
 use App\Http\Controllers\TahfidController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\PengajarController;
+use App\Http\Controllers\LaporanController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -25,7 +26,15 @@ use App\Http\Controllers\UserController;
 Route::resource('/user' , UserController::class)->middleware('auth');
 Route::get('/user/delete/{param}','App\Http\Controllers\UserController@delete')->middleware('auth');
 
-Route::resource('/santri' , SantriController::class)->middleware('auth');
+Route::resource('/laporan' , LaporanController::class,['except' => ['show']])->middleware('auth');
+Route::get('/laporan/absensisantri',[LaporanController::class,'absensisantri'])->name('absensisantri')->middleware('auth');
+Route::get('/laporan/ketercapaiansantri',[LaporanController::class,'ketercapaiansantri'])->name('ketercapaiansantri')->middleware('auth');
+Route::get('/laporan/absensipengajar',[LaporanController::class,'absensipengajar'])->name('absensipengajar')->middleware('auth');
+
+Route::resource('/pengajar' , PengajarController::class)->middleware('auth');
+Route::get('/pengajar/delete/{param}','App\Http\Controllers\PengajarController@delete')->middleware('auth');
+
+Route::resource('/santri', SantriController::class)->middleware('auth');
 Route::resource('/kelas' , KelasController::class)->middleware('auth');
 Route::get('/kelas/delete/{param}','App\Http\Controllers\KelasController@delete')->middleware('auth');
 

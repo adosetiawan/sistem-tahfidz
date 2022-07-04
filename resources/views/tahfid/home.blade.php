@@ -8,7 +8,14 @@
                     <h4 class="card-title">Data Tahfidz</h4>
                     <a href="{{ route('tahfid.create') }}" class="btn btn-primary">Tambah Tahfidz</a>
                 </div>
-                <div class="table-responsive pt-3">
+                <div class="pt-3">
+                    @if(count($errors)>0)
+                    @foreach($errors->all() as $error)
+                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                        <strong>Peringtan</strong> {{ $error }}
+                    </div>
+                    @endforeach
+                    @endif
                     <table class="table table-bordered">
                         <thead>
                             <tr>
@@ -28,8 +35,8 @@
                                 <td>{{ $item->nama_lengkap }}</td>
                                 <td colspan="4">
                                     <form action="{{ route('tahfid.store') }}" method="POST">
-                                            @csrf
-                                            @method('POST')
+                                        @csrf
+                                        @method('POST')
 
                                         <div class="row">
                                             <div class="col-md-3">
@@ -55,8 +62,8 @@
                                             </div>
                                             <div class="col-md-3">
                                                 <a href="{{ url('tahfid/detail/'.$item->santri_id) }}" class="btn btn-primary mr-2">Detail</a>
-                                                   
-                                                    <button type="submit" class="btn btn-success">Simpan</a>
+
+                                                <button type="submit" class="btn btn-success">Simpan</a>
                                             </div>
                                         </div>
                                     </form>

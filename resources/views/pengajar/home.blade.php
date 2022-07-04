@@ -5,9 +5,9 @@
         <div class="card">
             <div class="card-body">
                 <div class="d-flex justify-content-between">
-                    <h4 class="card-title">Data user</h4>
+                    <h4 class="card-title">Data pengajar</h4>
                    <div>
-                    <a href="{{ route('user.create') }}" class="btn btn-primary">Tambah user</a>
+                    <a href="{{ route('pengajar.create') }}" class="btn btn-primary">Tambah pengajar</a>
                    </div>
                 </div>
                 <div class=" pt-3">
@@ -17,24 +17,26 @@
                     <strong>{{ $message }}</strong>
                 </div>
                 @endif
-                    <table class="table table-striped" id="table-user">
+                    <table class="table table-striped" id="table-pengajar">
                         <thead>
                             <tr>
                                 <th scope="col">Nama</th>
+                                <th scope="col">Jenis Kelamin</th>
+                                <th scope="col">Alamat</th>
                                 <th scope="col">Email</th>
-                                <th scope="col">Level</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             @forelse ($items as $item)
                             <tr>
-                                <td>{{ $item->username }}</td>
+                                <td>{{ $item->nama }}</td>
+                                <td>{{ $item->jenis_kelamin }}</td>
+                                <td>{{ $item->alamat_lengkap }}</td>
                                 <td>{{ $item->email }}</td>
-                                <td>{{ $item->level }}</td>
                                 <td>
-                                    <a class="btn btn-warning" href="{{ route('user.edit', $item->id) }}">edit</a>
-                                    <a class="btn btn-danger" href="{{ url('user/delete', $item->id) }}">delete</a>
+                                    <a class="btn btn-warning" href="{{ route('pengajar.edit', $item->id) }}">edit</a>
+                                    <a class="btn btn-danger" href="{{ url('pengajar/delete', $item->id) }}">delete</a>
                                 </td>
                             </tr>
                             @empty
@@ -49,7 +51,7 @@
 <script>
     $(document).ready(function(){
         let documentTitle = $('.card-title').text();
-        $('#table-user').dataTable({
+        $('#table-pengajar').dataTable({
         dom: 'Bfrtip',
         buttons: [
                 {
@@ -67,7 +69,7 @@
                 {
                     extend: 'pdfHtml5',
                     title: documentTitle,
-                    orientation: 'landscape',
+                    //orientation: 'landscape',
                     pageSize: 'LEGAL',
                
                 }

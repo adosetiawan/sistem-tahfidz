@@ -27,12 +27,21 @@ class PresensiController extends Controller
     }
     
     public function store(Request $request){
-        $data = $request->all();
-        // print_r($data);
-        // exit;
-        $save = array($data['tanggal'],$data['pengajar_id'],$data['status'],$data['keterangan']);
-        DB::insert('insert into presensi (tanggal,pengajar_id,kehadiran,keterangan) values (?, ?, ?, ?)',$save);
-        //Presensi::create($save);
+        $this->validate($request,[
+            'tanggal' => 'required',
+            'pengajar_id' => 'required',
+            'status' => 'required',
+            'keterangan' => 'required',
+        ],[
+            'required'=>':attribute Harus di isi!!'
+        ]);
+    
+        Presensi::insert([
+            'tanggal'=> date('Y-m-d H:i:s',strtotime($request->tanggal)),
+            'pengajar_id'=> (int)$request->pengajar_id,
+            'kehadiran'=> $request->status,
+            'keterangan'=> $request->keterangan,
+        ]);
         return redirect()->route('presensi.index');
     }
 
