@@ -77,6 +77,25 @@
                         </div>
                     </div>
                     <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">Pilihan Kelas</label>
+
+                            <div class="col-sm-9">
+                                @error('kelas_id')
+                                <small class="alert alert-dabger">
+                                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                                        <strong>Peringtan</strong> {{ $message }}
+                                    </div>
+                                </small>
+                                @enderror
+                                <select name="kelas_id" class="form-control">
+                                    @forelse($kelas as $item)
+                                    <option value="{{$item->id}}">{{$item->kelas_nama}}</option>
+                                    @empty
+                                    @endforelse
+                                </select>
+                            </div>
+                        </div>  
+                    <div class="form-group row">
                         <label class="col-sm-3" for="exampleInputName1">Email</label>
                         <div class="col-sm-9">
                             @error('email')

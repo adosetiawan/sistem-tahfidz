@@ -28,7 +28,7 @@ class LoginController extends Controller
             $request->session()->regenerate();
             return redirect('santri');
         }else{
-            return redirect('login');
+            return redirect('login')->with(['passwordsalah'=>'Username atau password salah']);
         }
     }
     public function logout(Request $request)

@@ -22,7 +22,7 @@ class KelasController extends Controller
     public function store(Request $request){
         $data = $request->all();
         Kelas::create($data);
-        return redirect()->route('santri.index');
+        return redirect()->route('kelas.index');
     }
 
     public function edit($id){

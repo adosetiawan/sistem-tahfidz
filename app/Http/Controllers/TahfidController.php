@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Tahfid;
+use App\Models\Santri;
+use App\Models\Pengajar;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -10,10 +12,22 @@ class TahfidController extends Controller
 {
     public function index()
     {
-        // print_r(Auth::user()->email);
-        // exit;
-        $items =  DB::table('santri')->select('nama_lengkap','santri.id AS santri_id')->join('program_tahfidz', function ($join) {
-            $join->on('santri.program_id', '=', 'program_tahfidz.id');
+        $userinfo = Auth::user();
+        if($userinfo->level == 'pengajar'){
+            $pengajarkelas = Pengajar::select('kelas_id')->where('user_id',$userinfo->id)->first()->kelas_id;
+        }else{
+            $pengajarkelas = null;
+        }
+        //dd($pengajarkelas->kelas_id);
+        //exit;
+        $items =  Santri::select('nama_lengkap','santri.id AS santri_id')->join('program_tahfidz', function ($join) {
+                $join->on('santri.program_id', '=', 'program_tahfidz.id');
+            })->join('kelas',function($join){
+                $join->on('kelas.id','=','santri.kelas_id');
+            })->join('user',function($join){
+                $join->on('user.id','=','santri.user_id');
+            })->when($pengajarkelas,function($where)use($pengajarkelas){
+                $where->where('kelas.id','=',$pengajarkelas);
             })->get();
         return view('tahfid/home',[
             'items' => $items

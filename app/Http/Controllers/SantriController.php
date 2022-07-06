@@ -63,32 +63,41 @@ class SantriController extends Controller
         ],[
             'required'=>':attribute Harus di isi!!'
         ]);
-        $id = DB::table('user')->insertGetId([
-            'username' => $request->input('username'),  
-            'password' => Hash::make($request->input('password')),
-            'email' => $request->input('email'),
-            'level' => 'santri'
-        ]);
-        if($id){
-            $saveSantri = array(
-                'nama_lengkap' => $request->input('nama_lengkap'),  
-                'tempat_lahir' => $request->input('tempat_lahir'),  
-                'tanggal_lahir' => $request->input('tanggal_lahir'),  
-                'alamat_lengkap' => $request->input('alamat_lengkap'),  
-                'jenis_kelamin' => $request->input('jenis_kelamin'),  
-                'jenjang_sekolah' => $request->input('jenjang_sekolah'),  
-                'nama_ibu' => $request->input('nama_ibu'),  
-                'nama_ayah' => $request->input('nama_ayah'),  
-                'no_telp_ayah' => $request->input('no_telp_ayah'),  
-                'program_id' => $request->input('program_id'),   
-                'status' => $request->input('status'),  
-                'user_id' => $id,
-                'kelas_id' =>  $request->input('kelas_id')
-            );
-            DB::table('santri')->insert($saveSantri);
+
+      
+        if(DB::table('user')->select(DB::raw('COUNT(*) AS total'))->where('email',$request->email)->first()->total==0){
+            $id = DB::table('user')->insertGetId([
+                'username' => $request->input('username'),  
+                'password' => Hash::make($request->input('password')),
+                'email' => $request->input('email'),
+                'level' => 'santri'
+            ]);
+            if($id){
+                $saveSantri = array(
+                    'nama_lengkap' => $request->input('nama_lengkap'),  
+                    'tempat_lahir' => $request->input('tempat_lahir'),  
+                    'tanggal_lahir' => $request->input('tanggal_lahir'),  
+                    'alamat_lengkap' => $request->input('alamat_lengkap'),  
+                    'jenis_kelamin' => $request->input('jenis_kelamin'),  
+                    'jenjang_sekolah' => $request->input('jenjang_sekolah'),  
+                    'nama_ibu' => $request->input('nama_ibu'),  
+                    'nama_ayah' => $request->input('nama_ayah'),  
+                    'no_telp_ayah' => $request->input('no_telp_ayah'),  
+                    'program_id' => $request->input('program_id'),   
+                    'status' => $request->input('status'),  
+                    'user_id' => $id,
+                    'tanggal_daftar' => date('Y-m-d'),
+                    'kelas_id' =>  $request->input('kelas_id')
+                );
+                DB::table('santri')->insert($saveSantri);
+                return redirect()->route('santri.index');
+            }
+        }else{
+            return redirect()->back()->with(['erroremail'=>'Email sudah digunakan']);
+            // echo '<script>window.history.back()</script>';
+            // exit;
         }
 
-        return redirect()->route('santri.index');
     }
 
     public function edit($id){
@@ -114,7 +123,7 @@ class SantriController extends Controller
             $join->on('user.id','=','santri.user_id');
         })->leftJoin('kelas',function($join){
             $join->on('kelas.id','=','santri.kelas_id');
-        })->first();
+        })->where('santri.id',$id)->first();
         $program = DB::table('program_tahfidz')->get();
         $kelas = DB::table('kelas')->get();
         return view('santri.edit', [
@@ -139,9 +148,10 @@ class SantriController extends Controller
             'no_telp_ayah' => $request->input('no_telp_ayah'),  
             'program_id' => $request->input('program_id'),   
             'status' => $request->input('status'),  
-            'user_id' => $id,
+            //'user_id' => $id,
             'kelas_id' =>  $request->input('kelas_id')
         );
+        // dd($updateSantri);
         // exit;
         $item = DB::table('santri')->where('id',$id)->update($updateSantri);
         return redirect()->route('santri.index');

@@ -9,6 +9,7 @@ use App\Http\Controllers\TahfidController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PengajarController;
 use App\Http\Controllers\LaporanController;
+use App\Http\Controllers\DashboardsantriController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -33,6 +34,10 @@ Route::get('/laporan/absensipengajar',[LaporanController::class,'absensipengajar
 
 Route::resource('/pengajar' , PengajarController::class)->middleware('auth');
 Route::get('/pengajar/delete/{param}','App\Http\Controllers\PengajarController@delete')->middleware('auth');
+
+Route::resource('/dashboardsantri' , DashboardsantriController::class,['except' => ['show']])->middleware('auth');
+Route::get('/dashboardsantri/delete/{param}','App\Http\Controllers\DashboardsantriController@delete')->middleware('auth');
+Route::any('/dashboardsantri/absensisantri','App\Http\Controllers\DashboardsantriController@absensisantri')->middleware('auth');
 
 Route::resource('/santri', SantriController::class)->middleware('auth');
 Route::resource('/kelas' , KelasController::class)->middleware('auth');

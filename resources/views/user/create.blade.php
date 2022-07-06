@@ -34,7 +34,7 @@
                                 </div>
                             </small>
                             @enderror
-                            <input type="text" name="level" class="form-control" id="exampleInputEmail3" placeholder="level" value="pengajar" readonly>
+                            <input type="text" name="level" class="form-control" id="exampleInputEmail3" placeholder="level" value="admin" readonly>
                         </div>
                     </div>
                     <div class="form-group row">

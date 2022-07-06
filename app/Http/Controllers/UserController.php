@@ -31,7 +31,8 @@ class UserController extends Controller
         ],[
             'required'=>':attribute Harus di isi!!'
         ]);
-        User::create([
+     
+        User::insert([
             'username'=>$request->username,
             'password'=>Hash::make($request->password),
             'email' => $request->email,

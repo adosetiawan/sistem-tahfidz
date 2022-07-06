@@ -26,6 +26,13 @@
                 <div class="tab-content" id="myTabContent">
                     <div class="tab-pane fade show active" id="home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
                         <div class="box-body">
+                        
+                        @if ($message = Session::get('erroremail'))
+                            <div class="alert alert-danger alert-block">
+                                <button type="button" class="close" data-dismiss="alert">×</button>
+                                <strong>{{ $message }}</strong>
+                            </div>
+                            @endif
                             <div class="form-group">
                                 <label>Nama Lengkap <small data-toggle="tooltip" title="Wajib diisi">*</small></label>
                                 @error('nama_lengkap')
@@ -233,7 +240,7 @@
                                     </div>
                                 </small>
                                 @enderror
-                                <input name="password" type="password" class="form-control" value="" placeholder="Masulan Password">
+                                <input name="password" type="password" class="form-control" value="" placeholder="Masulan Password" autocomplete="off">
                             </div>
                         </div>
                     </div>
@@ -259,10 +266,7 @@
                             </label>
                         </div>
                         <br>
-                        <label>Foto Profil</label>
-
-                        <input type="file" id="student_img" name="student_img">
-                        <br><br><br>
+                      
                         <button type="submit" class="btn btn-block btn-success">Simpan</button>
                         <a href="" class="btn btn-block btn-info">Batal</a>
                     </div>

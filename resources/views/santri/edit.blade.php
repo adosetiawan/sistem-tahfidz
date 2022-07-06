@@ -182,10 +182,7 @@
                             </label>
                         </div>
                         <br>
-                        <label>Foto Profil</label>
-                       
-                        <input type="file" id="student_img" name="student_img">
-                        <br><br><br>
+                      
                         <button type="submit" class="btn btn-block btn-success">Simpan</button>
                         <a href="" class="btn btn-block btn-info">Batal</a>
                     </div>

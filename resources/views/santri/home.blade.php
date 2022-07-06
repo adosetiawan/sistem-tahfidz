@@ -37,13 +37,20 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse ($items as $item)
+                            @forelse ($items as $key => $item)
                             <tr>
-                                <td>1</td>
+                                <td>{{++$key}}</td>
                                 <td>{{ $item->nama_lengkap }}</td>
                                 <td>{{ $item->program_nama }}</td>
                                 <td>{{ $item->kelas_nama }}</td>
-                                <td>{{ $item->jenis_kelamin }}</td>
+                                <td>@php
+                                        if($item->jenis_kelamin == 'laki-laki'){
+                                            echo 1;
+                                        }else{
+                                            echo 2;
+                                        }
+                                    @endphp
+                                </td>
                                 <td>{{ $item->no_telp_ayah }}</td>
 
                                 <td>
@@ -85,7 +92,7 @@
                 {
                     extend: 'pdfHtml5',
                     title: documentTitle,
-                    orientation: 'landscape',
+                    //orientation: 'landscape',
                     pageSize: 'LEGAL',
 
                 }

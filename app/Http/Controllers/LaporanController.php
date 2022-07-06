@@ -59,8 +59,8 @@ class LaporanController extends Controller
                 return $item->whereDate('tanggal', '>=', $request->tanggal_mulai);
             })->when($request->tanggal_selesai, function ($item) use ($request) {
                 return $item->whereDate('tanggal', '<=', $request->tanggal_selesai);
-            })->when($request->kehadiran, function ($item) use ($request) {
-                return $item->where('kehadiran', '=', $request->kehadiran);
+            })->when($request->status, function ($item) use ($request) {
+                return $item->where('kehadiran', '=', $request->status);
             })->get();
 
         return view('laporan/absensipengajar',[

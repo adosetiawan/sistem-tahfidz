@@ -5,7 +5,7 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Skydash Admin</title>
+  <title>Sistem Tahfidzul Quran</title>
   <!-- plugins:css -->
   <link rel="stylesheet" href="{{asset('vendors/feather/feather.css')}}">
   <link rel="stylesheet" href="{{asset('vendors/ti-icons/css/themify-icons.css')}}">
@@ -16,7 +16,7 @@
   <!-- inject:css -->
   <link rel="stylesheet" href="{{asset('css/vertical-layout-light/style.css')}}">
   <!-- endinject -->
-  <link rel="shortcut icon" href="{{asset('images/favicon.png')}}" />
+  <link rel="shortcut icon" href="{{asset('images/sitaq/sitaqu-icon.png')}}" />
 </head>
 
 <body>
@@ -26,18 +26,18 @@
         <div class="row w-100 mx-0">
           <div class="col-lg-4 mx-auto">
             <div class="auth-form-light text-left py-5 px-4 px-sm-5">
-              <div class="brand-logo text-center">
-                <img src="{{asset('images/alquran-icon-png-4.png')}}" alt="logo">
+              <div class="brand-logo mb-0 text-center">
+                <img src="{{asset('images/sitaq/sitaqu-login.png')}}" alt="logo" style="width: 300px;">
               </div>
-              <h3 class="text-center text-bold"> SISTEM TAHFIDZH</h3>
-              @if(count($errors)>0)
-              @foreach($errors->all() as $error)
-              <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                <strong>Peringtan</strong> {{ $error }}
-              </div>
-              @endforeach
-              @endif
+              <!-- <h3 class="text-center text-bold"> LOGIN PAGE</h3> -->
+           
               <!-- <h6 class="font-weight-light">Sign in to continue.</h6> -->
+              @if ($message = Session::get('passwordsalah'))
+                <div class="alert alert-danger alert-block">
+                    <button type="button" class="close" data-dismiss="alert">×</button>
+                    <strong>{{ $message }}</strong>
+                </div>
+                @endif
               <form class="pt-3" method="POST" action="/login/proses">
                 @csrf
                 <div class="form-group">
@@ -48,7 +48,9 @@
                     </div>
                   </small>
                   @enderror
-                  <input type="text" name="username" class="form-control form-control-lg" id="exampleInputEmail1" placeholder="Username">
+                  <label for="exampleInputPassword1"> <b>Username</b></label>
+
+                  <input type="text" name="username" class="form-control form-control-lg" id="exampleInputPassword1" placeholder="Masukan Username">
                 </div>
                 <div class="form-group">
                   @error('password')
@@ -58,7 +60,8 @@
                     </div>
                   </small>
                   @enderror
-                  <input type="password" name="password" class="form-control form-control-lg" id="exampleInputPassword1" placeholder="Password">
+                  <label for="exampleInputPassword1"> <b>Password</b></label>
+                  <input type="password" name="password" class="form-control form-control-lg" id="exampleInputPassword1" placeholder="Masukan Password">
                 </div>
                 <div class="mt-3">
                   <button type="submit" class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn">MASUK</button>
@@ -74,7 +77,6 @@
                 </div>
 
                 <div class="text-center mt-4 font-weight-light">
-                  Belum memiliki akun? <a href="register.html')}}" class="text-primary">Daftar</a>
                 </div>
               </form>
             </div>

@@ -5,11 +5,12 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Skydash Admin</title>
+  <title>Sistem Tahfidz Quran </title>
   <!-- plugins:css -->
   <link rel="stylesheet" href="{{asset('vendors/feather/feather.css')}}">
   <link rel="stylesheet" href="{{asset('vendors/ti-icons/css/themify-icons.css')}}">
   <link rel="stylesheet" href="{{asset('vendors/css/vendor.bundle.base.css')}}">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
   <!-- endinject -->
   <!-- Plugin css for this page -->
   <!-- End plugin css for this page -->
@@ -17,7 +18,7 @@
   <link rel="stylesheet" href="{{asset('vendors/datatables.net-bs4/dataTables.bootstrap4.css')}}">
   <link rel="stylesheet" href="{{asset('css/vertical-layout-light/style.css')}}">
   <!-- endinject -->
-  <link rel="shortcut icon" href="{{asset('images/favicon.png')}}" />
+  <link rel="shortcut icon" href="{{asset('images/sitaq/sitaqu-icon.png')}}" />
 
   <script src="{{asset('vendors/js/vendor.bundle.base.js')}}"></script>
 
@@ -46,7 +47,7 @@
   <script src="{{asset('vendors/datatables.net/vfs_fonts.js')}}"></script>
   <script src="{{asset('vendors/datatables.net/buttons.html5.min.js')}}"></script>
   <script src="{{asset('js/dataTables.select.min.js')}}"></script>
-  
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
   <!-- End custom js for this page-->
 
 </head>
@@ -56,8 +57,8 @@
     <!-- partial:partials/_navbar.html -->
     <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
       <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-        <a class="navbar-brand brand-logo mr-5" href="index.html"><img src="{{asset('images/logo.svg')}}" class="mr-2" alt="logo" /></a>
-        <a class="navbar-brand brand-logo-mini" href="index.html"><img src="{{asset('images/logo-mini.svg')}}" alt="logo" /></a>
+        <a class="navbar-brand brand-logo mr-5" href="index.html"><img src="{{asset('images/sitaq/sitaqu-dashboard.svg')}}" class="mr-2" alt="logo" /></a>
+        <a class="navbar-brand brand-logo-mini" href="index.html"><img src="{{asset('images/sitaq/sitaqu-logo-tok.png')}}" alt="logo" /></a>
       </div>
       <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
         <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
@@ -133,7 +134,7 @@
                 <i class="ti-settings text-primary"></i>
                 Settings
               </a>
-              <a class="dropdown-item">
+              <a class="dropdown-item" href="{{ url('logout')}}">
                 <i class="ti-power-off text-primary"></i>
                 Logout
               </a>
@@ -354,12 +355,12 @@
             </div>
           </li>
           <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+            <a class="nav-link" data-toggle="collapse" href="#ui-data-pengajar" aria-expanded="false" aria-controls="ui-data-pengajar">
               <i class="icon-layout menu-icon"></i>
               <span class="menu-title">Data Pengajar</span>
               <i class="menu-arrow"></i>
             </a>
-            <div class="collapse" id="ui-basic">
+            <div class="collapse" id="ui-data-pengajar">
               <ul class="nav flex-column sub-menu">
                 <li class="nav-item"> <a class="nav-link" href="{{ route('pengajar.index') }}">Daftar Pengajar</a></li>
                 <li class="nav-item"> <a class="nav-link" href="{{ route('pengajar.create') }}">Tambah Pengajar</a></li>
@@ -375,7 +376,6 @@
             <div class="collapse" id="ui-hafalan">
               <ul class="nav flex-column sub-menu">
                 <li class="nav-item"> <a class="nav-link" href="{{ route('tahfid.index') }}">Daftar Hafalan</a></li>
-                <li class="nav-item"> <a class="nav-link" href="{{ route('tahfid.create') }}">Tambah Hafalan</a></li>
               </ul>
             </div>
           </li>
@@ -394,12 +394,12 @@
           </li>
 
           <li class="nav-item">
-            <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
+            <a class="nav-link" data-toggle="collapse" href="#data-user" aria-expanded="false" aria-controls="data-user">
               <i class="icon-head menu-icon"></i>
               <span class="menu-title">Data User</span>
               <i class="menu-arrow"></i>
             </a>
-            <div class="collapse" id="auth">
+            <div class="collapse" id="data-user">
               <ul class="nav flex-column sub-menu">
                 <li class="nav-item"> <a class="nav-link" href="{{ route('user.index')}}"> Daftar User </a></li>
               </ul>
@@ -407,7 +407,7 @@
           </li>
           <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
-              <i class="icon-head menu-icon"></i>
+            <i class="icon-bar-graph menu-icon"></i>
               <span class="menu-title">Laporan</span>
               <i class="menu-arrow"></i>
             </a>
@@ -420,11 +420,42 @@
               </ul>
             </div>
           </li>
-          @endif
-       
+          @elseif($userinfo->level == 'pengajar')
+          <li class="nav-item">
+            <a class="nav-link" href="{{ route('tahfid.index') }}">
+              <i class="icon-grid menu-icon"></i>
+              <span class="menu-title">Input Hafalan</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url('laporan/ketercapaiansantri') }}">
+            <i class="icon-paper menu-icon"></i>
+              <span class="menu-title">Report Hafalan</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url('laporan/absensisantri')}}">
+            <i class="icon-paper menu-icon"></i>
+              <span class="menu-title">Report Absensi</span>
+            </a>
+          </li>
+          @elseif($userinfo->level == 'santri')
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url('dashboardsantri')}}">
+            <i class="icon-paper menu-icon"></i>
+              <span class="menu-title">Capaian Saya</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url('dashboardsantri/absensisantri')}}">
+            <i class="icon-paper menu-icon"></i>
+              <span class="menu-title">Absensi Saya</span>
+            </a>
+          </li>
+        @endif
           <li class="nav-item">
             <a class="nav-link" href="{{ url('logout')}}">
-              <i class="icon-grid menu-icon"></i>
+            <i class="ti-power-off menu-icon"></i>
               <span class="menu-title">Logout</span>
             </a>
           </li>

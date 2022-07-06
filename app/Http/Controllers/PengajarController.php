@@ -26,11 +26,16 @@ class PengajarController extends Controller
     }
 
     public function create(Request $request){
-
-        return view('pengajar.create');
+        $kelas = DB::table('kelas')->get();
+        return view('pengajar.create',[
+                'kelas' => $kelas
+            ]
+        );
     }
     
     public function store(Request $request){
+        // dd($request->all());
+        // exit;
         $this->validate($request,[
             'nama' => 'required',
             'jenis_kelamin' => 'required',
@@ -50,13 +55,15 @@ class PengajarController extends Controller
             'username' => $request->username,
             'password' => Hash::make($request->password),
         ]);
+       
         if($id){
-            Pengajar::create([
+            Pengajar::insert([
                 'nama' => $request->nama,
                 'jenis_kelamin' => $request->jenis_kelamin,
                 'tanggal_lahir' => $request->tanggal_lahir,
                 'tempat_lahir' => $request->tempat_lahir,
                 'alamat_lengkap' => $request->alamat_lengkap,
+                'kelas_id' => $request->kelas_id,
                 'user_id' => $id,
             ]);
         }
